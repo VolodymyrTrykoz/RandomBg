@@ -1,0 +1,88 @@
+//base
+@import "base/normalise"
+@import "base/fonts"
+@import "base/vars"
+
+
+//partials
+
+.question
+  position: absolute
+  width: 500px
+  height: 50px
+  left: 0
+  top: 0
+  background: #fff
+  border: 1px solid #ccc
+  &__wrapper
+    position: relative
+    width: 500px
+    height: 50px
+
+.switch
+  position: absolute
+  top: 50%
+  right: 15px
+  transform: translateY(-50%)
+  display: inline-block
+  width: 24px
+  height: 24px
+  [type="checkbox"], [type="radio"]
+    opacity: 0
+  &__trigger
+    position: absolute
+    cursor: pointer
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    background-color: #232863
+    transition: background-color .2s ease-in-out
+    &:before
+        position: absolute
+        content: ""
+        height: 9px
+        width: 21px
+        left: 2px
+        top: 2px
+        transition: transform .2s ease-in-out
+        z-index: 2
+        background-color: #fff
+
+.switch__input:checked + .switch__trigger
+  background-color: #EA0094
+
+.switch__input:checked + .switch__trigger:before
+  transform: translateY(12px)
+
+
+.option
+  position: absolute
+  top: 50px
+  left: 5%
+  width: 90%
+  padding: 20px 35px
+  list-style: none
+  box-shadow: 0 30px 60px 0 rgba(32,31,91,.3)
+  border-radius: 5px
+  &--invisible
+    display: none
+  &__item
+    cursor: pointer
+    font-size: 18px
+    padding: 25px 0
+
+
+
+
+.gifffer-play-button
+  display: none
+button
+  pointer-events: none
+  width: 200px!important
+  height: 150px!important
+
+.btn
+  pointer-events: auto
+  width: 150px!important
+  height: 50px!important

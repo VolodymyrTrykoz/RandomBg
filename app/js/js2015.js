@@ -2321,28 +2321,30 @@ $(document).ready(function () {
 
 $(document).ready(function () {
 	Gifffer();
-	var buttons = void 0;
+	var gifs = void 0;
 	function runAnimation() {
-		var _this = this;
-
-		$(this).click();
-		setTimeout(function () {
-			$(_this).click();
-		}, 5000);
+		console.log(this);
+		this.click();
 	}
-	(function () {
-		Math.randomInt = function (min, max) {
-			return Math.floor(Math.random() * (max - min)) + min;
-		};
-	})();
+
+	Math.randomInt = function (min, max) {
+		return Math.floor(Math.random() * (max - min)) + min;
+	};
 
 	var randomNumb = void 0;
+	var store = [];
+
 	setTimeout(function () {
-		$('.btn').on('click', function () {
-			buttons = $('button');
-			randomNumb = Math.randomInt(0, 4);
-			console.log(randomNumb);
-			runAnimation.call(buttons[randomNumb]);
-		});
+		gifs = $('.gif');
+		var pickGifToRun = setInterval(function () {
+			randomNumb = Math.randomInt(0, 7);
+			if (!store.includes(randomNumb)) {
+				runAnimation.call(gifs[randomNumb]);
+				store.push(randomNumb);
+			}
+			if (store.length === gifs.length) {
+				clearInterval(pickGifToRun);
+			}
+		}, 1000);
 	}, 2000);
 });

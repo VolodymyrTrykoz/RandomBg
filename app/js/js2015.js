@@ -2321,9 +2321,8 @@ $(document).ready(function () {
 
 $(document).ready(function () {
 	Gifffer();
-	var gifs = void 0;
+	var $gifs = void 0;
 	function runAnimation() {
-		console.log(this);
 		this.click();
 	}
 
@@ -2331,20 +2330,20 @@ $(document).ready(function () {
 		return Math.floor(Math.random() * (max - min)) + min;
 	};
 
-	var randomNumb = void 0;
 	var store = [];
 
+	var setRandValue = function setRandValue() {
+		var randomNumb = Math.randomInt(0, 7);
+		if (!store.includes(randomNumb)) {
+			store.push(randomNumb);
+		}
+		if (store.length < 7) {
+			return setRandValue();
+		}
+	};
 	setTimeout(function () {
-		gifs = $('.gif');
-		var pickGifToRun = setInterval(function () {
-			randomNumb = Math.randomInt(0, 7);
-			if (!store.includes(randomNumb)) {
-				runAnimation.call(gifs[randomNumb]);
-				store.push(randomNumb);
-			}
-			if (store.length === gifs.length) {
-				clearInterval(pickGifToRun);
-			}
-		}, 1000);
+		$gifs = $('.gif');
+		setRandValue();
+		console.log($gifs, store);
 	}, 2000);
 });

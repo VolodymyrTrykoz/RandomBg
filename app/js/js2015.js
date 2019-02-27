@@ -2292,36 +2292,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 'use strict';
 
 $(document).ready(function () {
-	console.log('greet');
-	var myInfo = "<p>My name is {{name}}, I am {{age}} years old and I live in {{city}}</p>";
-	var template = Handlebars.compile(myInfo);
-	var data = template({
-		name: 'Andrew',
-		age: '32',
-		city: 'Kyiv'
-	});
-
-	$('#info').html(data);
-});
-'use strict';
-
-$(document).ready(function () {
-	console.log('list');
-	var myInfo = '<div>\n\t\t\tToday user {{name}} is going to do next:\n\t\t\t<ul class="people_list">\n  \t\t\t\t{{#each people}}\n    \t\t\t\t<li>{{this}}</li>\n  \t\t\t\t{{/each}}\n\t\t\t</ul>\n\t\t\t{{#if author}}\n    \t\t\t<h1>\u0414\u043E\u0431\u0440\u0438\u0439 \u0432\u0435\u0447\u0456\u0440</h1>\n    \t\t\t{{else}}\n    \t\t\t<h1>\u0414\u043E\u043F\u043E\u0431\u0430\u0447\u0435\u043D\u043D\u044F</h1>\n  \t\t\t{{/if}}\n\t\t</div>';
-	var template = Handlebars.compile(myInfo);
-	var data = template({
-		name: 'Andrew',
-		people: ["Learn Handlebars", "Learn React", "Learn English"],
-		author: false
-	});
-
-	$('.todos').html(data);
-});
-'use strict';
-
-$(document).ready(function () {
+	console.log('DOM is ready');
 	Gifffer();
 	var $gifs = void 0;
+
 	function runAnimation() {
 		this.click();
 	}
@@ -2332,18 +2306,37 @@ $(document).ready(function () {
 
 	var store = [];
 
+	var fireRandomGif = function fireRandomGif() {
+		var _loop = function _loop(i) {
+			var randomNumb = store[i];
+			var randomGif = $gifs[randomNumb];
+			setTimeout(function () {
+				runAnimation.call(randomGif);
+			}, i * 5000);
+		};
+
+		for (var i = 0; i < store.length; i++) {
+			_loop(i);
+		}
+	};
+
 	var setRandValue = function setRandValue() {
-		var randomNumb = Math.randomInt(0, 7);
+		var randomNumb = Math.randomInt(0, $gifs.length);
 		if (!store.includes(randomNumb)) {
 			store.push(randomNumb);
 		}
-		if (store.length < 7) {
+		if (store.length < $gifs.length) {
 			return setRandValue();
 		}
+		if (store.length === $gifs.length) {
+			fireRandomGif();
+		}
 	};
-	setTimeout(function () {
+
+	window.onload = function () {
+		console.log('window is ready');
 		$gifs = $('.gif');
+		$('.gif__wrapper').removeClass('gif__wrapper--hidden');
 		setRandValue();
-		console.log($gifs, store);
-	}, 2000);
+	};
 });

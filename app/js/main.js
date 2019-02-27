@@ -1,6 +1,8 @@
 $(document).ready(function() {
+	console.log('DOM is ready');
 	Gifffer();
 	let $gifs;
+
 	function runAnimation() {
 		this.click();
 	}
@@ -11,19 +13,43 @@ $(document).ready(function() {
 
 	let store = [];
 
+	const fireRandomGif = () => {
+		for (let i = 0; i < store.length; i++) {
+			const randomNumb = store[i];
+			const randomGif = $gifs[randomNumb];
+			setTimeout(function() { runAnimation.call(randomGif); }, i*5000 );
+		}
+	};
+
 	const setRandValue = () => {
-		const randomNumb = Math.randomInt(0, 7);
+		const randomNumb = Math.randomInt(0, $gifs.length);
 		if(!store.includes(randomNumb)){
 			store.push(randomNumb);
 		}
-		if(store.length < 7) {
+		if(store.length < $gifs.length) {
 			return setRandValue();
 		}
+		if(store.length === $gifs.length){
+			fireRandomGif();
+		}
 	};
-	setTimeout(()=>{
+
+	window.onload = function() {
+		console.log('window is ready');
 		$gifs = $('.gif');
+		$('.gif__wrapper').removeClass('gif__wrapper--hidden');
 		setRandValue();
-		console.log($gifs, store);
-	}, 2000);
+	};
+
+
+
+
+
+
+
+
+
+
+
 });
 

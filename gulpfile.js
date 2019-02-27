@@ -15,8 +15,6 @@ let gulp = require('gulp'),
 gulp.task('babel', function () {
     gulp.src([
       'app/libs/jquery-3.3.1/jquery-3.3.1.min.js',
-      'app/js/greet.js',
-      'app/js/list.js',
       'app/js/main.js'
     ]).pipe(babel({presets: ['env']}))
       .pipe(concat('js2015.js'))

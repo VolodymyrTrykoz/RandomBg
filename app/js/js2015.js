@@ -2292,34 +2292,22 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 'use strict';
 
 $(document).ready(function () {
-	console.log('DOM is ready');
 	Gifffer();
 	var $gifs = void 0;
-
 	function runAnimation() {
 		this.click();
 	}
-
 	Math.randomInt = function (min, max) {
 		return Math.floor(Math.random() * (max - min)) + min;
 	};
-
 	var store = [];
-
 	var fireRandomGif = function fireRandomGif() {
-		var _loop = function _loop(i) {
+		for (var i = 0; i < store.length; i++) {
 			var randomNumb = store[i];
 			var randomGif = $gifs[randomNumb];
-			setTimeout(function () {
-				runAnimation.call(randomGif);
-			}, i * 5000);
-		};
-
-		for (var i = 0; i < store.length; i++) {
-			_loop(i);
+			// setTimeout(function() { runAnimation.call(randomGif); }, i*5000 );
 		}
 	};
-
 	var setRandValue = function setRandValue() {
 		var randomNumb = Math.randomInt(0, $gifs.length);
 		if (!store.includes(randomNumb)) {
@@ -2332,11 +2320,10 @@ $(document).ready(function () {
 			fireRandomGif();
 		}
 	};
-
 	window.onload = function () {
-		console.log('window is ready');
-		$gifs = $('.gif');
-		$('.gif__wrapper').removeClass('gif__wrapper--hidden');
+		$gifs = jQuery('.gif');
+		jQuery('.gif__wrapper').removeClass('gif__wrapper--hidden');
+		jQuery('body').removeClass('beforeGifsLoad');
 		setRandValue();
 	};
 });
